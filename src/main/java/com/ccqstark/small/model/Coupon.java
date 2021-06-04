@@ -2,6 +2,9 @@ package com.ccqstark.small.model;
 
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -23,6 +26,7 @@ public class Coupon implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "券id")
+    @TableId(value = "coupon_id", type = IdType.AUTO)
     private Integer couponId;
 
     @ApiModelProperty(value = "优惠券名称")

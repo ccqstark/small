@@ -3,6 +3,8 @@ package com.ccqstark.small.model;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -23,6 +25,7 @@ public class OrderInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId
     private String orderId;
 
     @ApiModelProperty(value = "支付手段")

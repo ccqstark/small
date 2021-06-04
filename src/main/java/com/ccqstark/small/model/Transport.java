@@ -2,6 +2,8 @@ package com.ccqstark.small.model;
 
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -23,6 +25,7 @@ public class Transport implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "运输单号")
+    @TableId
     private Integer transportId;
 
     @ApiModelProperty(value = "同种商品")
