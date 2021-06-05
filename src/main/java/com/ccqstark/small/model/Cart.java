@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -18,6 +19,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor
 @ApiModel(value="Cart对象", description="")
 public class Cart implements Serializable {
 
@@ -35,6 +37,9 @@ public class Cart implements Serializable {
 
     @ApiModelProperty(value = "购买数量")
     private Integer buyNumber;
+
+    @ApiModelProperty(value = "是否已选择")
+    private Integer selected;
 
     @ApiModelProperty(value = "是否已经加入到订单")
     private Integer toOrder;

@@ -2,6 +2,8 @@ package com.ccqstark.small.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ccqstark.small.common.CommonResult;
+import com.ccqstark.small.common.IErrorCode;
+import com.ccqstark.small.common.ResultCode;
 import com.ccqstark.small.dto.LoginParam;
 import com.ccqstark.small.dto.RegisterParam;
 import com.ccqstark.small.model.User;
@@ -66,10 +68,16 @@ public class UserController {
     }
 
 
-    @ApiOperation("测试session是否存在")
-    @GetMapping("/test_session")
-    public boolean test(HttpSession session) {
-        return session.isNew();
+    @ApiOperation("获取用户信息")
+    @GetMapping("/info")
+    public CommonResult<User> test(HttpSession session) {
+        // 未登录
+        if (session.isNew() || session.getAttribute("user") == null) {
+            return CommonResult.failed(ResultCode.UNAUTHORIZED);
+        }
+
+        User user = (User) session.getAttribute("user");
+        return CommonResult.success(user);
     }
 
 

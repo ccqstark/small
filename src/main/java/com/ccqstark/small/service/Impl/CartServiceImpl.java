@@ -1,14 +1,20 @@
 package com.ccqstark.small.service.Impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ccqstark.small.dao.CartMapper;
+import com.ccqstark.small.dto.CartListUnit;
 import com.ccqstark.small.model.Cart;
 import com.ccqstark.small.service.ICartService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author ccqstark
@@ -17,5 +23,22 @@ import org.springframework.stereotype.Service;
 @Service
 public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements ICartService {
 
+    @Autowired
+    private CartMapper cartMapper;
+
+    /**
+     * 获取用户的购物车列表
+     */
+    @Override
+    public List<CartListUnit> getCartList(int userId) {
+
+        List<CartListUnit> unitList = cartMapper.getCartList(userId);
+        // 计算小计
+        for (CartListUnit cartListUnit : unitList) {
+            cartListUnit.setLittleSum(cartListUnit.getPrice().multiply(BigDecimal.valueOf(cartListUnit.getBuyNumber())));
+        }
+
+        return unitList;
+    }
 
 }

@@ -1,4 +1,39 @@
 package com.ccqstark.small.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.ccqstark.small.common.CommonResult;
+import com.ccqstark.small.model.Commodity;
+import com.ccqstark.small.service.Impl.CommodityServiceImpl;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.PrimitiveIterator;
+
+@RestController
+@RequestMapping("/cod")
 public class CommodityController {
+
+    @Autowired
+    private CommodityServiceImpl commodityService;
+
+    @ApiOperation("首页展示商品")
+    @GetMapping("/index")
+    public CommonResult<List<Commodity>> getIndexCommodity(){
+        QueryWrapper<Commodity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.last("limit 14");
+        return CommonResult.success(commodityService.list(queryWrapper));
+    }
+
+    @ApiOperation("新建商品")
+    @PostMapping("/new")
+    public CommonResult postCommonResult(@RequestBody Commodity commodity){
+        commodityService.save(commodity);
+        return CommonResult.success();
+    }
+
+
+
 }

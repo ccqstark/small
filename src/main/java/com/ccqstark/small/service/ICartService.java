@@ -1,7 +1,10 @@
 package com.ccqstark.small.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ccqstark.small.dto.CartListUnit;
 import com.ccqstark.small.model.Cart;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,7 @@ import com.ccqstark.small.model.Cart;
  * @since 2021-05-26
  */
 public interface ICartService extends IService<Cart> {
+
+    List<CartListUnit> getCartList(int userId);
 
 }
