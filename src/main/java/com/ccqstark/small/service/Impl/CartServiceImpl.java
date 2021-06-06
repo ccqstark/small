@@ -42,7 +42,7 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements IC
     }
 
     /**
-     * 获取用户的购物车列表
+     * 获取用户选中的购物车列表
      */
     @Override
     public List<CartListUnit> getCartSelectedList(int userId) {

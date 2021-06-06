@@ -1,7 +1,10 @@
 package com.ccqstark.small.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ccqstark.small.dto.OrderToPayInfo;
 import com.ccqstark.small.model.OrderInfo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,5 +17,7 @@ import com.ccqstark.small.model.OrderInfo;
 public interface IOrderInfoService extends IService<OrderInfo> {
 
     String confirmOrder(int receiverId, int userId);
+
+    OrderToPayInfo getOrderInfo(String orderId);
 
 }

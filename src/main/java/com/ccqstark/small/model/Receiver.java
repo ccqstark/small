@@ -8,10 +8,11 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author ccqstark
@@ -19,7 +20,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value="Receiver对象", description="")
+@ApiModel(value = "Receiver对象", description = "")
 public class Receiver implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -52,5 +53,14 @@ public class Receiver implements Serializable {
     @ApiModelProperty(value = "邮编")
     private String postcode;
 
-
+    @Override
+    public String toString() {
+        return receiverName + " | " +
+                phone + " | " +
+                province + " | " +
+                city + " | " +
+                area + " | " +
+                detail + " | " +
+                postcode;
+    }
 }

@@ -13,10 +13,7 @@ import com.ccqstark.small.service.Impl.OrderInfoServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -46,6 +43,12 @@ public class OrderController {
         map.put("orderId", orderId);
 
         return CommonResult.success(map);
+    }
+
+    @ApiOperation("获得订单详情")
+    @GetMapping("/info/{orderId}")
+    public CommonResult getOrderInfo(@PathVariable("orderId") String orderId) {
+        return CommonResult.success(orderInfoService.getOrderInfo(orderId));
     }
 
 }

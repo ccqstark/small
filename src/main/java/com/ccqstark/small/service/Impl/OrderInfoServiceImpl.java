@@ -3,13 +3,14 @@ package com.ccqstark.small.service.Impl;
 import cn.hutool.core.util.IdUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.injector.methods.SelectBatchByIds;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ccqstark.small.dao.CartMapper;
 import com.ccqstark.small.dao.OrderContentMapper;
 import com.ccqstark.small.dao.OrderInfoMapper;
-import com.ccqstark.small.model.Cart;
-import com.ccqstark.small.model.OrderContent;
-import com.ccqstark.small.model.OrderInfo;
+import com.ccqstark.small.dao.ReceiverMapper;
+import com.ccqstark.small.dto.OrderToPayInfo;
+import com.ccqstark.small.model.*;
 import com.ccqstark.small.service.IOrderInfoService;
 import org.omg.CORBA.SetOverrideType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -36,6 +38,12 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
     private OrderInfoMapper orderInfoMapper;
     @Autowired
     private OrderContentServiceImpl orderContentService;
+    @Autowired
+    private ReceiverMapper receiverMapper;
+    @Autowired
+    private CommodityServiceImpl commodityService;
+    @Autowired
+    private CartServiceImpl cartService;
 
     /**
      * 订单确认
@@ -72,5 +80,39 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
 
         return orderId;
     }
+
+    /**
+     * 获取订单详情
+     */
+    @Override
+    public OrderToPayInfo getOrderInfo(String orderId){
+
+        OrderToPayInfo orderToPayInfo = new OrderToPayInfo();
+        orderToPayInfo.setOrderId(orderId);
+
+        // 收货信息
+        OrderInfo orderInfo = getById(orderId);
+        int receiverId = orderInfo.getReceiverId();
+        Receiver receiver = receiverMapper.selectById(receiverId);
+        orderToPayInfo.setAddress(receiver.toString());
+
+        // 商品信息
+        List<OrderContent> orderContentList = orderContentService.getBaseMapper().selectList(new QueryWrapper<OrderContent>().eq("order_id", orderId));
+        List<Integer> cartIdList = orderContentList.stream()
+                .map(OrderContent::getCartId).distinct()
+                .collect(Collectors.toList());
+
+        // 获取codId
+        List<Cart> cartList = cartService.listByIds(cartIdList);
+        List<Integer> codIdList = cartList.stream()
+                .map(Cart::getCodId).distinct()
+                .collect(Collectors.toList());
+        // 获取商品信息
+        List<Commodity> commodityList = commodityService.listByIds(codIdList);
+        orderToPayInfo.setCommodityList(commodityList);
+
+        return orderToPayInfo;
+    }
+
 
 }
