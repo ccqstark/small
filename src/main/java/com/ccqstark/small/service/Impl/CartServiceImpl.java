@@ -41,4 +41,19 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements IC
         return unitList;
     }
 
+    /**
+     * 获取用户的购物车列表
+     */
+    @Override
+    public List<CartListUnit> getCartSelectedList(int userId) {
+
+        List<CartListUnit> unitList = cartMapper.getCartSelectedList(userId);
+        // 计算小计
+        for (CartListUnit cartListUnit : unitList) {
+            cartListUnit.setLittleSum(cartListUnit.getPrice().multiply(BigDecimal.valueOf(cartListUnit.getBuyNumber())));
+        }
+
+        return unitList;
+    }
+
 }

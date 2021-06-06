@@ -18,4 +18,6 @@ public interface ICartService extends IService<Cart> {
 
     List<CartListUnit> getCartList(int userId);
 
+    List<CartListUnit> getCartSelectedList(int userId);
+
 }

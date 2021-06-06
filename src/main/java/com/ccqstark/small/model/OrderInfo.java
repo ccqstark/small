@@ -7,6 +7,7 @@ import java.io.Serializable;
 import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -19,6 +20,7 @@ import lombok.EqualsAndHashCode;
  * @since 2021-05-26
  */
 @Data
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value="OrderInfo对象", description="")
 public class OrderInfo implements Serializable {
@@ -27,6 +29,9 @@ public class OrderInfo implements Serializable {
 
     @TableId
     private String orderId;
+
+    @ApiModelProperty(value = "收货者id")
+    private int receiverId;
 
     @ApiModelProperty(value = "支付手段")
     private String payMethod;
@@ -38,7 +43,7 @@ public class OrderInfo implements Serializable {
     private LocalDateTime payTime;
 
     @ApiModelProperty(value = "订单状态")
-    private Boolean status;
+    private int status;
 
 
 }

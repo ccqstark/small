@@ -21,4 +21,6 @@ public interface CartMapper extends BaseMapper<Cart> {
 
     List<CartListUnit> getCartList(@Param("user_id") int userId);
 
+    List<CartListUnit> getCartSelectedList(@Param("user_id") int userId);
+
 }

@@ -1,13 +1,11 @@
 package com.ccqstark.small.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ccqstark.small.common.CommonResult;
 import com.ccqstark.small.common.ResultCode;
 import com.ccqstark.small.dto.CartListUnit;
 import com.ccqstark.small.model.Cart;
 import com.ccqstark.small.model.User;
 import com.ccqstark.small.service.Impl.CartServiceImpl;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -80,6 +78,31 @@ public class CartController {
     public CommonResult<String> deleteCart(@PathVariable("cartId") int cartId){
         cartService.removeById(cartId);
         return CommonResult.success();
+    }
+
+    @ApiOperation("获取购物车列表")
+    @GetMapping("/list_selected")
+    public CommonResult<Map<String,Object>> getSelectedList(HttpSession session){
+
+        // 未登录
+        if (session.isNew() || session.getAttribute("user") == null) {
+            return CommonResult.failed(ResultCode.UNAUTHORIZED);
+        }
+
+        int userId = ((User)session.getAttribute("user")).getUserId();
+        List<CartListUnit> cartListUnitList = cartService.getCartSelectedList(userId);
+
+        // 计算总价
+        BigDecimal sum = new BigDecimal(0);
+        for (CartListUnit cartListUnit : cartListUnitList){
+            sum = sum.add(cartListUnit.getLittleSum());
+        }
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("list", cartListUnitList);
+        map.put("sum",sum);
+
+        return CommonResult.success(map);
     }
 
 }

@@ -13,4 +13,6 @@ import com.ccqstark.small.model.OrderInfo;
  */
 public interface IOrderInfoService extends IService<OrderInfo> {
 
+    String confirmOrder(int receiverId, int userId);
+
 }

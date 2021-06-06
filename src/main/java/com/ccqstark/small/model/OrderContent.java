@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -18,6 +19,7 @@ import lombok.EqualsAndHashCode;
  * @since 2021-05-26
  */
 @Data
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value="OrderContent对象", description="")
 public class OrderContent implements Serializable {
@@ -32,6 +34,5 @@ public class OrderContent implements Serializable {
 
     @ApiModelProperty(value = "所属用户")
     private Integer userId;
-
 
 }
