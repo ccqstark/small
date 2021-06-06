@@ -2,7 +2,6 @@ package com.ccqstark.small.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ccqstark.small.common.CommonResult;
-import com.ccqstark.small.common.IErrorCode;
 import com.ccqstark.small.common.ResultCode;
 import com.ccqstark.small.dto.LoginParam;
 import com.ccqstark.small.dto.RegisterParam;
@@ -11,10 +10,8 @@ import com.ccqstark.small.service.Impl.UserServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import sun.tools.java.CompilerError;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -34,8 +31,8 @@ public class UserController {
         User user = userService.getOne(queryWrapper);
 
         if (user != null) {
-            // session生存时间设置为24小时
-            session.setMaxInactiveInterval(24 * 3600);
+            // session生存时间设置为永久不过期
+            session.setMaxInactiveInterval(-1);
             session.setAttribute("user", user);
             // 登录成功，返回user_id
             user.setPassword(null);

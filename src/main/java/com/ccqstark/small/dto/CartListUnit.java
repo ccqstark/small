@@ -1,6 +1,5 @@
 package com.ccqstark.small.dto;
 
-import com.sun.tools.corba.se.idl.InterfaceGen;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;

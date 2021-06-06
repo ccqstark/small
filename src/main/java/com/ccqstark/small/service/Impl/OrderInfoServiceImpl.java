@@ -3,16 +3,13 @@ package com.ccqstark.small.service.Impl;
 import cn.hutool.core.util.IdUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.baomidou.mybatisplus.core.injector.methods.SelectBatchByIds;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ccqstark.small.dao.CartMapper;
-import com.ccqstark.small.dao.OrderContentMapper;
 import com.ccqstark.small.dao.OrderInfoMapper;
 import com.ccqstark.small.dao.ReceiverMapper;
 import com.ccqstark.small.dto.OrderToPayInfo;
 import com.ccqstark.small.model.*;
 import com.ccqstark.small.service.IOrderInfoService;
-import org.omg.CORBA.SetOverrideType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

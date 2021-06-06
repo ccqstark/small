@@ -1,6 +1,5 @@
 package com.ccqstark.small.service.Impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ccqstark.small.dao.CartMapper;
 import com.ccqstark.small.dto.CartListUnit;
