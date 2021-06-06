@@ -29,11 +29,15 @@ public class CommodityController {
 
     @ApiOperation("新建商品")
     @PostMapping("/new")
-    public CommonResult postCommonResult(@RequestBody Commodity commodity){
+    public CommonResult<String> postCommonResult(@RequestBody Commodity commodity){
         commodityService.save(commodity);
         return CommonResult.success();
     }
 
-
+    @ApiOperation("获得一件商品的信息")
+    @GetMapping("/one/{codId}")
+    public CommonResult<Commodity> getOneCommodity(@PathVariable("codId") int codId){
+        return CommonResult.success(commodityService.getById(codId));
+    }
 
 }

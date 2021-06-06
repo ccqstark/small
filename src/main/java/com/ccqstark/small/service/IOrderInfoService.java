@@ -20,4 +20,6 @@ public interface IOrderInfoService extends IService<OrderInfo> {
 
     OrderToPayInfo getOrderInfo(String orderId);
 
+    List<OrderToPayInfo> getOrderList(int userId);
+
 }

@@ -114,5 +114,25 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         return orderToPayInfo;
     }
 
+    /**
+     * 获得订单列表
+     */
+    @Override
+    public List<OrderToPayInfo> getOrderList(int userId){
+
+        List<OrderContent> orderContentList = orderContentService.list(new QueryWrapper<OrderContent>().eq("user_id",userId));
+        // 获取orderId
+        List<String> orderIdList = orderContentList.stream()
+                .map(OrderContent::getOrderId).distinct()
+                .collect(Collectors.toList());
+
+        List<OrderToPayInfo> orderToPayInfoList = new ArrayList<>();
+        for (String orderId : orderIdList){
+            orderToPayInfoList.add(this.getOrderInfo(orderId));
+        }
+
+        return orderToPayInfoList;
+    }
+
 
 }
