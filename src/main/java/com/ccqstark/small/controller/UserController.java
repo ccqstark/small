@@ -9,6 +9,7 @@ import com.ccqstark.small.model.User;
 import com.ccqstark.small.service.Impl.UserServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -22,7 +23,7 @@ public class UserController {
 
     @ApiOperation("登录")
     @PostMapping("/login")
-    public CommonResult<User> Login(@RequestBody LoginParam loginParam, HttpSession session) {
+    public CommonResult<User> Login(@RequestBody @Validated LoginParam loginParam, HttpSession session) {
 
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", loginParam.getUsername())
@@ -44,7 +45,7 @@ public class UserController {
 
     @ApiOperation("注册")
     @PostMapping("/register")
-    public CommonResult<String> register(@RequestBody RegisterParam registerParam) {
+    public CommonResult<String> register(@RequestBody @Validated RegisterParam registerParam) {
 
         if (!registerParam.getPassword().equals(registerParam.getRe_password())) {
             return CommonResult.failed("两次密码不一致");

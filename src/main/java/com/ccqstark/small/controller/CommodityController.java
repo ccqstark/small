@@ -6,6 +6,7 @@ import com.ccqstark.small.model.Commodity;
 import com.ccqstark.small.service.Impl.CommodityServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,7 +41,7 @@ public class CommodityController {
 
     @ApiOperation("新建商品")
     @PostMapping("/new")
-    public CommonResult<String> postCommonResult(@RequestBody Commodity commodity){
+    public CommonResult<String> postCommonResult(@RequestBody @Validated Commodity commodity){
         commodityService.save(commodity);
         return CommonResult.success();
     }

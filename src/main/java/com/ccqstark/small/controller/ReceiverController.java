@@ -8,9 +8,11 @@ import com.ccqstark.small.model.User;
 import com.ccqstark.small.service.Impl.ReceiverServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -36,7 +38,7 @@ public class ReceiverController {
 
     @ApiOperation("新增收货地址")
     @PostMapping("/add")
-    public CommonResult<String> addReceiver(@RequestBody Receiver receiver, HttpSession session) {
+    public CommonResult<String> addReceiver(@RequestBody @Validated Receiver receiver, HttpSession session) {
 
         // 未登录
         if (session.isNew() || session.getAttribute("user") == null) {
@@ -52,7 +54,7 @@ public class ReceiverController {
 
     @ApiOperation("修改收货地址")
     @PutMapping("/{receiverId}")
-    public CommonResult<String> modifyReceiver(@PathVariable("receiverId") int receiverId, @RequestBody Receiver receiver) {
+    public CommonResult<String> modifyReceiver(@PathVariable("receiverId") int receiverId, @RequestBody @Validated Receiver receiver) {
         receiver.setReceiverId(receiverId);
         receiverService.updateById(receiver);
         return CommonResult.success();
