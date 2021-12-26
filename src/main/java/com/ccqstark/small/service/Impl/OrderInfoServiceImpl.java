@@ -12,6 +12,7 @@ import com.ccqstark.small.model.*;
 import com.ccqstark.small.service.IOrderInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -45,6 +46,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
     /**
      * 订单确认
      */
+    @Transactional
     @Override
     public String confirmOrder(int receiverId, int userId) {
 
