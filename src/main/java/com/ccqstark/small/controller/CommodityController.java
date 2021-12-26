@@ -25,6 +25,19 @@ public class CommodityController {
         return CommonResult.success(commodityService.list(queryWrapper));
     }
 
+    @ApiOperation("列出所有商品列表")
+    @GetMapping("/list")
+    public CommonResult<List<Commodity>> getCommodityList(){
+        return CommonResult.success(commodityService.list());
+    }
+
+    @ApiOperation("下架商品列表")
+    @DeleteMapping("/one/{codId}")
+    public CommonResult deleteCommodity(@PathVariable("codId") int codId){
+        commodityService.removeById(codId);
+        return CommonResult.success();
+    }
+
     @ApiOperation("新建商品")
     @PostMapping("/new")
     public CommonResult<String> postCommonResult(@RequestBody Commodity commodity){

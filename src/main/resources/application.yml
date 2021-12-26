@@ -1,11 +1,14 @@
+server:
+  port: 8081
+
 spring:
 
   # 数据源配置
   datasource:
     username: root
-    password: 142843827Ccq!
+    password: 142843827ccq
     # serverTimezone=UTC解决时区的报错
-    url: jdbc:mysql://49.234.82.226:3306/small?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://39.108.154.184:3308/small?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
 
@@ -33,11 +36,11 @@ spring:
     # redis数据库索引（默认为0)
     database: 3
     # redis服务器地址（默认为localhost）
-    host: 1.116.74.79
+    host: 120.24.169.49
     # redis端口（默认为6379）
     port: 6379
     # redis访问密码（默认为空）
-    password: ylclubredis503
+    password: shubairedis2021
     # redis连接超时时间（单位为毫秒）
     timeout: 3000
 
